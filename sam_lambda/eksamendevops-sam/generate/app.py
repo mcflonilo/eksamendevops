@@ -2,17 +2,18 @@ import json
 import base64
 import boto3
 import random
+import os
 
 bedrock_client = boto3.client("bedrock-runtime", region_name="us-east-1")
 s3_client = boto3.client("s3")
 
 model_id = "amazon.titan-image-generator-v1"
-bucket_name = "pgr301-couch-explorers"
+bucket_name = os.getenv('BUCKET_NAME', 'default-bucket-name')
 
 def lambda_handler(event, context):
     prompt = event['prompt']
     seed = random.randint(0, 2147483647)
-    s3_image_path = f"generated_images/titan_{seed}.png"
+    s3_image_path = f"35/titan_{seed}.png"
 
     native_request = {
         "taskType": "TEXT_IMAGE",
