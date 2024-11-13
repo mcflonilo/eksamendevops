@@ -24,7 +24,7 @@ jobs:
           pip install aws-sam-cli
 
       - name: SAM build
-        run: sam build --use-container
+        run: sam build sam build --template /eksamen2024kandidat35/sam_lambda/eksamendevops-sam/template.yaml
 
       - name: SAM deploy
         env:
