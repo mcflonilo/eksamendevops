@@ -33,8 +33,6 @@ Resources:
           Properties:
             Path: /generate
             Method: post
-            Auth:
-              Authorizer: NONE
 
   LambdaExecutionRole:
     Type: AWS::IAM::Role
@@ -75,7 +73,5 @@ Resources:
 
 Outputs:
   GenerateImageApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  
-  
+    Description: API Gateway endpoint URL for Prod stage for Generate Image function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/generate/"
