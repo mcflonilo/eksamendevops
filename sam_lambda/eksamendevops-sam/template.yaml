@@ -33,8 +33,7 @@ Resources:
           Properties:
             Path: /generate
             Method: post
-            Auth:
-              Authorizer: NONE
+            
 
   LambdaExecutionRole:
     Type: AWS::IAM::Role
