@@ -27,6 +27,23 @@ jobs:
         run: terraform init
         working-directory: ./infra
 
+      - name: Check for changes in lambda_sqs.py
+        id: changes
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q 'lambda_sqs.py'; then
+            echo "file changed=true" >> $GITHUB_ENV
+          else
+            echo "file changed=false" >> $GITHUB_ENV
+          fi
+
+      - name: Delete existing zip file
+        if: env.file_changed == 'true'
+        run: rm -f lambda_sqs.zip
+
+      - name: Create new zip file
+        if: env.file_changed == 'true'
+        run: zip lambda_sqs.zip lambda_sqs.py
+
       - name: Terraform Plan
         if: github.ref != 'refs/heads/main'
         run: terraform plan
