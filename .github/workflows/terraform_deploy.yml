@@ -48,3 +48,8 @@ jobs:
         with:
           files: infra/lambda_sqs.py
           dest: lambda_function.zip
+          
+      - uses: actions/upload-artifact@v1.1
+        with:
+        name: my-artifact
+        path: ${{ github.workspace }}/lambda_function.zip
