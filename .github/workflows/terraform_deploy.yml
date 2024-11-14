@@ -20,39 +20,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2  # Fetch at least two commits to compare changes
+          fetch-depth: 2
 
-      
-
-      - name: Check for changes in lambda_sqs.py
-        id: changes
-        run: |
-          if git diff --name-only HEAD^ HEAD | grep -q 'lambda_sqs.py'; then
-            echo "file_changed=true" >> $GITHUB_ENV
-          else
-            echo "file_changed=false" >> $GITHUB_ENV
-          fi
-
-      - name: Debug - List files
-        if: env.file_changed == 'true'
-        run: ls -la
-
-      - name: Delete existing zip file
-        if: env.file_changed == 'true'
-        run: rm -f lambda_sqs.zip
-        working-directory: ./infra
-        
-      - name: Create new zip file
-        if: env.file_changed == 'true'
-        run: zip lambda_sqs.zip lambda_sqs.py
-        working-directory: ./infra
-        
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
         run: terraform init
         working-directory: ./infra
+
+      - name: Delete existing zip file
+        run: rm -f lambda_sqs.zip
+        
+        
+
+      - name: Check zip file deletion
+        run: |
+          if [ -f lambda_sqs.zip ]; then
+            echo "Zip file still exists!";
+            exit 1;
+          else
+            echo "Zip file successfully deleted";
+          fi
+
+        
+        
 
       - name: Terraform Plan
         if: github.ref != 'refs/heads/main'
@@ -63,3 +55,11 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
         working-directory: ./infra
+  zip-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: vimtor/action-zip@v1.2
+        with:
+          files: infra/lambda_sqs.py
+          dest: lambda_function.zip
