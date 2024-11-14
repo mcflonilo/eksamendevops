@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "bedrock_image_generator" {
   function_name = var.lambda_function_name
   role          = aws_iam_role.lambda_exec_role.arn
-  handler       = "lambda_function.lambda_handler"
+  handler       = "lambda_sqs.lambda_handler"
   runtime       = "python3.9"
 
   filename         = "lambda_function.zip"

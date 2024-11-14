@@ -9,6 +9,6 @@ variable "image_bucket_name" {
 }
 variable "lambda_function_name" {
   description = "The name of the Lambda function"
-  default     = "lambda_function"
+  default     = "35_generate_image"
   type        = string
 }
