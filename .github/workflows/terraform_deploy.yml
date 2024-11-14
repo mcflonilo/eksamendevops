@@ -38,18 +38,15 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
         working-directory: ./infra
-  zip-files:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete existing zip file
-        run: rm -f lambda_sqs.zip
-      - uses: actions/checkout@v2
-      - uses: vimtor/action-zip@v1.2
+        
+
+      - uses: actions/checkout@master
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.5
         with:
-          files: infra/lambda_sqs.py
-          dest: lambda_function.zip
-          
-      - uses: actions/upload-artifact@v1.1
-        with:
-        name: my-artifact
-        path: ${{ github.workspace }}/lambda_function.zip
+            type: 'zip'
+            filename: 'lambda_function.zip'
+            directory: 'infra'
+            path: 'infra/lambda_sqs.py'
+            
+ 
