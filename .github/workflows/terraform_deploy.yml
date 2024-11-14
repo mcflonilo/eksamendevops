@@ -14,13 +14,13 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: 'us-east-1'
+      AWS_DEFAULT_REGION: 'eu-west-1'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 2  # Fetch at least two commits to compare changes
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -28,6 +28,15 @@ jobs:
       - name: Terraform Init
         run: terraform init
         working-directory: ./infra
+
+      - name: Debug - List files
+        run: ls -la infra
+
+      - name: Delete existing zip file
+        run: rm -f lambda_sqs.zip
+
+      - name: Create new zip file
+        run: zip lambda_sqs.zip infra/lambda_sqs.py
 
       - name: Terraform Plan
         if: github.ref != 'refs/heads/main'
@@ -38,15 +47,3 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
         working-directory: ./infra
-        
-
-      - uses: actions/checkout@master
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.5
-        with:
-            type: 'zip'
-            filename: 'lambda_function.zip'
-            directory: 'infra'
-            path: 'infra/lambda_sqs.py'
-            
- 
