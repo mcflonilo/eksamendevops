@@ -38,6 +38,10 @@ jobs:
             echo "file_changed=false" >> $GITHUB_ENV
           fi
 
+      - name: Debug - List files
+        if: env.file_changed == 'true'
+        run: ls -la
+
       - name: Delete existing zip file
         if: env.file_changed == 'true'
         run: rm -f lambda_sqs.zip
