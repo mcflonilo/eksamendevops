@@ -22,12 +22,7 @@ jobs:
         with:
           fetch-depth: 2  # Fetch at least two commits to compare changes
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-
-      - name: Terraform Init
-        run: terraform init
-        working-directory: ./infra
+      
 
       - name: Check for changes in lambda_sqs.py
         id: changes
@@ -50,6 +45,13 @@ jobs:
       - name: Create new zip file
         if: env.file_changed == 'true'
         run: zip lambda_sqs.zip lambda_sqs.py
+        working-directory: ./infra
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
         working-directory: ./infra
 
       - name: Terraform Plan
