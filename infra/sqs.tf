@@ -1,5 +1,5 @@
 resource "aws_sqs_queue" "image_prompt_queue" {
-  name = "image-prompt-queue"
+  name = "image-prompt-queue-35"
   visibility_timeout_seconds = 60
 }
 

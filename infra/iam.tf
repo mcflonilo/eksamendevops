@@ -32,17 +32,17 @@ resource "aws_iam_role_policy" "lambda_sqs_policy" {
       {
         Action   = "sqs:ReceiveMessage"
         Effect   = "Allow"
-        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue"
+        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue-35"
       },
       {
         Action   = "sqs:DeleteMessage"
         Effect   = "Allow"
-        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue"
+        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue-35"
       },
       {
         Action   = "sqs:GetQueueAttributes"
         Effect   = "Allow"
-        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue"
+        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue-35"
       }
     ]
   })
