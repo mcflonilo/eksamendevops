@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2  # Fetch at least two commits to compare changes
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -30,7 +32,6 @@ jobs:
       - name: Check for changes in lambda_sqs.py
         id: changes
         run: |
-          git fetch origin +refs/heads/${GITHUB_REF#refs/heads/}:refs/remotes/origin/${GITHUB_REF#refs/heads/}
           if git diff --name-only HEAD^ HEAD | grep -q 'lambda_sqs.py'; then
             echo "file_changed=true" >> $GITHUB_ENV
           else
