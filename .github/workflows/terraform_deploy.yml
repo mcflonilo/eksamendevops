@@ -25,11 +25,14 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./infra
 
       - name: Terraform Plan
         if: github.ref != 'refs/heads/main'
         run: terraform plan
+        working-directory: ./infra
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
+        working-directory: ./infra
