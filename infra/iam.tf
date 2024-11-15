@@ -25,8 +25,7 @@ resource "aws_iam_role_policy" "lambda_sqs_policy" {
         Action   = ["s3:GetObject", "s3:ListBucket"]
         Effect   = "Allow"
         Resource = [
-          "arn:aws:s3:::your-s3-bucket-name/*",
-          "arn:aws:s3:::your-s3-bucket-name"
+          "*",
         ]
       },
       {
