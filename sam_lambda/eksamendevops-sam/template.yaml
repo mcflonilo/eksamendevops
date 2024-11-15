@@ -33,7 +33,6 @@ Resources:
           Properties:
             Path: /generate
             Method: post
-            
 
   LambdaExecutionRole:
     Type: AWS::IAM::Role
@@ -56,6 +55,22 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                 Resource: arn:aws:s3:::pgr301-couch-explorers/*
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+              - Effect: Allow
+                Action:
+                  - xray:PutTraceSegments
+                  - xray:PutTelemetryRecords
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - bedrock:InvokeModel
+                  - bedrock:ListModels
+                Resource: "*"
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
