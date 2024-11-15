@@ -12,3 +12,8 @@ variable "lambda_function_name" {
   default     = "35_generate_image"
   type        = string
 }
+variable "alert_email" {
+  description = "The email address to send CloudWatch alarms to"
+  default     = "lm.opheim39@gmail.com"
+  type        = string
+}
