@@ -21,18 +21,18 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:${{ github.sha }} .
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:${{ github.sha }} .
       working-directory: ./java_sqs_client
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:${{ github.sha }}
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:${{ github.sha }}
 
     - name: Push Docker image with latest tag
       run: |
         BRANCH_TAG=${{ github.ref_name }}
         BRANCH_TAG=$(echo $BRANCH_TAG | sed 's/\//-/g')  # Replace '/' with '-'
-        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:latest
-        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:${BRANCH_TAG}
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:latest
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/eksamenDevopsKandidat35:${BRANCH_TAG}
+        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:latest
+        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:${BRANCH_TAG}
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/eksamendevopskandidat35:${BRANCH_TAG}
