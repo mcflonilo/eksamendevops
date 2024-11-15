@@ -29,15 +29,6 @@ jobs:
         run: terraform init
         working-directory: ./infra
 
-      - name: Debug - List files
-        run: ls -la infra
-
-      - name: Delete existing zip file
-        run: rm -f lambda_sqs.zip
-
-      - name: Create new zip file
-        run: zip lambda_sqs.zip infra/lambda_sqs.py
-
       - name: Terraform Plan
         if: github.ref != 'refs/heads/main'
         run: terraform plan
