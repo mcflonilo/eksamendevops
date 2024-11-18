@@ -15,12 +15,9 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: 'eu-west-1'
+      USER_EMAIL: ${{ github.actor }}@users.noreply.github.com
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2  # Fetch at least two commits to compare changes
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -31,10 +28,10 @@ jobs:
 
       - name: Terraform Plan
         if: github.ref != 'refs/heads/main'
-        run: terraform plan
+        run: terraform plan -var 'alert_email=${{ env.USER_EMAIL }}'
         working-directory: ./infra
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
+        run: terraform apply -var 'alert_email=${{ env.USER_EMAIL }}' -auto-approve
         working-directory: ./infra
