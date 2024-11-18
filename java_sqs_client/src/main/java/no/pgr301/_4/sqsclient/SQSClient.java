@@ -48,5 +48,6 @@ public class SQSClient implements CommandLineRunner {
 
         SendMessageResponse response = sqsClient.sendMessage(sendMessageRequest);
         System.out.println("Message sent successfully. Message ID: " + response.messageId());
+        System.out.println(response.md5OfMessageBody());
     }
 }

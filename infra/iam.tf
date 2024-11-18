@@ -22,26 +22,14 @@ resource "aws_iam_role_policy" "lambda_sqs_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action   = ["s3:GetObject", "s3:ListBucket"]
+        Action   = ["sqs:ReceiveMessage", "sqs:DeleteMessage", "sqs:GetQueueAttributes"]
         Effect   = "Allow"
-        Resource = [
-          "*",
-        ]
+        Resource = aws_sqs_queue.image_prompt_queue.arn
       },
       {
-        Action   = "sqs:ReceiveMessage"
+        Action   = "logs:*"
         Effect   = "Allow"
-        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue-35"
-      },
-      {
-        Action   = "sqs:DeleteMessage"
-        Effect   = "Allow"
-        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue-35"
-      },
-      {
-        Action   = "sqs:GetQueueAttributes"
-        Effect   = "Allow"
-        Resource = "arn:aws:sqs:eu-west-1:244530008913:image-prompt-queue-35"
+        Resource = "*"
       }
     ]
   })
