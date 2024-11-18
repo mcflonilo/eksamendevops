@@ -40,4 +40,5 @@ En fordel til mikrotjenester for ressursbruk er at du har full kontroll over res
 Man kan oppnå høy kostnadseffektivitet med mikrotjenester siden du kan skalere nøyaktig de delene som trenger skalering i motsetning til å måtte skalere hele applikasjonen. en ulempe er at du får ekstra kostnader på grunn av behovet for orkestreringsverktøy
 
 4.	Ansvar 
+
 I en overgang fra mikrotjenester til serverless vil ansvaret for servere infrastruktur og skalering gå over på skyleverandøren, dette vil gi teamet mer kapasitet til å fokusere på ytelse og funksjonalitet, men senker kontrollen til teamet over underliggende ressurser. Det kan også senke kostnadene til teamet siden de vil bare betale for ressurser brukt i motsetning til en mikrotjeneste arkitektur hvor man ofte betaler for maks kapasiteten til serveren uavhengig av belastning.
