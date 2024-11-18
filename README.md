@@ -5,7 +5,9 @@ Workflow kjørt : https://github.com/mcflonilo/eksamendevops/actions/runs/118570
 Oppgave 2
 
 Push til main : https://github.com/mcflonilo/eksamendevops/actions/runs/11857156888
+
 Push til branch : https://github.com/mcflonilo/eksamendevops/actions/runs/11891474232
+
 Sqs url : https://sqs.eu-west-1.amazonaws.com/244530008913/image-prompt-queue-35
 
 Oppgave 3
